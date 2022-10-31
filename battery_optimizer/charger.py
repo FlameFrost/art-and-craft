@@ -6,7 +6,7 @@ from wipro import get_device, set_device_status
 
 CHRG_MAX = 80
 CHRG_MIN = 30
-WAIT = 60 * 1  # seconds
+WAIT = 60 * 10  # seconds
 
 BATTERY = psutil.sensors_battery
 
@@ -43,7 +43,9 @@ def toggle_opt_charging():
 
 if __name__ == "__main__":
     try:
-        logger.info("Started optimal charging")
+        logger.info(
+            f"Started optimal charging with MIN({CHRG_MIN}), MAX({CHRG_MAX}), WAIT({WAIT}s)"
+        )
         main()
     except KeyboardInterrupt:
         pass
