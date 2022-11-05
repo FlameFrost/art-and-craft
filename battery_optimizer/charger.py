@@ -6,7 +6,7 @@ from wipro import get_device, set_device_status
 
 CHRG_MAX = 80
 CHRG_MIN = 30
-WAIT = 60 * 10  # seconds
+WAIT = 60 * 8  # seconds
 
 BATTERY = psutil.sensors_battery
 
@@ -14,7 +14,7 @@ APPDIR = r"C:\Bin\cron"
 
 logging.basicConfig(
     filename=rf"{APPDIR}\charging.log",
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(asctime)s | %(name)s | %(levelname)s | %(message)s",
 )
 
@@ -35,9 +35,11 @@ def toggle_opt_charging():
     bt = BATTERY()
     logger.info(f"{bt.percent}%, {bt.power_plugged}")
 
-    if bt.percent > CHRG_MAX and bt.plugged_in:
+    if bt.percent > CHRG_MAX and bt.power_plugged:
+        logger.info("Switcing off")
         set_device_status(get_device(), False)
-    elif bt.percent < CHRG_MIN and not bt.plugged_in:
+    elif bt.percent < CHRG_MIN and not bt.power_plugged:
+        logger.info("Switcing on")
         set_device_status(get_device(), True)
 
 
