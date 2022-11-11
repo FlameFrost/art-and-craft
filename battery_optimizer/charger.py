@@ -5,7 +5,7 @@ import time
 from wipro import get_device, set_device_status
 
 CHRG_MAX = 80
-CHRG_MIN = 30
+CHRG_MIN = 40
 WAIT = 60 * 8  # seconds
 
 BATTERY = psutil.sensors_battery
